@@ -10,6 +10,7 @@ import Plans from '../components/Plans';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import FloatingButton from '../components/FloatingButton';
+import Gallery from '../components/Gallery';
 
 const Index = () => {
   // Scroll to top on page load
@@ -24,6 +25,7 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <Services />
+        <Gallery />
         <AboutUs />
         <Team />
         <Plans />

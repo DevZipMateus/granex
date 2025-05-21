@@ -41,6 +41,9 @@ const Hero = () => {
             <a href="#services" className="btn-secondary">
               Nossos serviços
             </a>
+            <a href="#gallery" className="hidden sm:flex items-center justify-center border border-green-500/40 bg-black/20 hover:bg-black/30 text-white px-6 py-3 rounded-md transition-all">
+              <span>Ver galeria</span>
+            </a>
           </div>
         </div>
       </div>
