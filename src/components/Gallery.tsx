@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { GalleryHorizontal, Image } from 'lucide-react';
+import React, { useState } from 'react';
+import { GalleryHorizontal, Image, ArrowLeft, ArrowRight, X } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -73,6 +73,49 @@ const galleryImages = [
 ];
 
 const Gallery = () => {
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  
+  const openModal = (index: number) => {
+    setSelectedImageIndex(index);
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  };
+  
+  const closeModal = () => {
+    setSelectedImageIndex(null);
+    document.body.style.overflow = 'auto'; // Restore scrolling
+  };
+  
+  const goToNextImage = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex((selectedImageIndex + 1) % galleryImages.length);
+  };
+  
+  const goToPrevImage = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex((selectedImageIndex - 1 + galleryImages.length) % galleryImages.length);
+  };
+  
+  // Handle keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      
+      if (e.key === 'ArrowRight') {
+        goToNextImage();
+      } else if (e.key === 'ArrowLeft') {
+        goToPrevImage();
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedImageIndex]);
+
   return (
     <section id="gallery" className="py-16 bg-neutral-100">
       <div className="container-custom">
@@ -96,7 +139,10 @@ const Gallery = () => {
               {galleryImages.map((image, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <div className="overflow-hidden rounded-lg shadow-md">
+                    <div 
+                      className="overflow-hidden rounded-lg shadow-md cursor-pointer"
+                      onClick={() => openModal(index)}
+                    >
                       <div className="relative aspect-video">
                         <img 
                           src={image.src} 
@@ -123,7 +169,8 @@ const Gallery = () => {
           {galleryImages.map((image, index) => (
             <div 
               key={index} 
-              className="overflow-hidden rounded-lg shadow-md transition-transform hover:scale-[1.02]"
+              className="overflow-hidden rounded-lg shadow-md transition-transform hover:scale-[1.02] cursor-pointer"
+              onClick={() => openModal(index)}
             >
               <div className="relative aspect-video">
                 <img 
@@ -146,6 +193,60 @@ const Gallery = () => {
           </p>
         </div>
       </div>
+
+      {/* Image Modal */}
+      {selectedImageIndex !== null && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+          onClick={closeModal}
+        >
+          <div className="absolute top-4 right-4 z-10">
+            <button 
+              onClick={closeModal} 
+              className="rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+              aria-label="Fechar"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevImage();
+            }} 
+            className="absolute left-4 md:left-8 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+            aria-label="Imagem anterior"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          
+          <div 
+            className="max-w-4xl max-h-[80vh] relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={galleryImages[selectedImageIndex].src}
+              alt={galleryImages[selectedImageIndex].alt}
+              className="max-h-[80vh] max-w-full object-contain"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-4 text-white text-center">
+              <p className="text-sm md:text-base">{galleryImages[selectedImageIndex].caption}</p>
+            </div>
+          </div>
+          
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNextImage();
+            }} 
+            className="absolute right-4 md:right-8 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+            aria-label="Próxima imagem"
+          >
+            <ArrowRight size={24} />
+          </button>
+        </div>
+      )}
     </section>
   );
 };
