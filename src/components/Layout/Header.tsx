@@ -35,29 +35,23 @@ const Header = () => {
         <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 md:mb-2">
           {/* Contact Information */}
           <div className="flex flex-col md:flex-row md:space-x-6 text-sm text-gray-600 mb-2 md:mb-0 items-center">
-            <a href="mailto:contato@contabilidade.com" className="flex items-center hover:text-amber-500 transition-colors duration-300 mb-1 md:mb-0">
+            <a href="mailto:adm@granexcontrol.com" className="flex items-center hover:text-green-500 transition-colors duration-300 mb-1 md:mb-0">
               <Mail size={16} className="mr-2" />
-              contato@contabilidade.com
+              adm@granexcontrol.com
             </a>
-            <a href="tel:+5511987654321" className="flex items-center hover:text-amber-500 transition-colors duration-300 whitespace-nowrap">
+            <a href="tel:+5542991022044" className="flex items-center hover:text-green-500 transition-colors duration-300 whitespace-nowrap">
               <Phone size={16} className="mr-2" />
-              (11) 98765-4321
+              (42) 99102-2044
             </a>
           </div>
           
           {/* Social Media Icons */}
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-500 hover:text-amber-500 transition-colors duration-300">
-              <Facebook size={18} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-amber-500 transition-colors duration-300">
+            <a href="https://www.instagram.com/granexcontrol" target="_blank" rel="noopener" className="text-gray-500 hover:text-green-500 transition-colors duration-300">
               <Instagram size={18} />
             </a>
-            <a href="#" className="text-gray-500 hover:text-amber-500 transition-colors duration-300">
-              <Twitter size={18} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-amber-500 transition-colors duration-300">
-              <Linkedin size={18} />
+            <a href="#" className="text-gray-500 hover:text-green-500 transition-colors duration-300">
+              <Facebook size={18} />
             </a>
           </div>
         </div>
@@ -65,8 +59,8 @@ const Header = () => {
         {/* Main Navigation */}
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-semibold text-amber-500 transition-all duration-300 transform hover:scale-[1.02]">
-            ContaPlus
+          <Link to="/" className="text-2xl font-semibold text-green-600 transition-all duration-300 transform hover:scale-[1.02]">
+            <img src="/lovable-uploads/068190b2-c34b-4c2b-bdbd-44eb0f472585.png" alt="GRANEX CONTROL" className="h-10 w-auto" />
           </Link>
           
           {/* Desktop Navigation */}
@@ -79,7 +73,7 @@ const Header = () => {
           
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-gray-600 hover:text-amber-500 focus:outline-none"
+            className="md:hidden text-gray-600 hover:text-green-500 focus:outline-none"
             onClick={toggleMobileMenu}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -90,10 +84,10 @@ const Header = () => {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden ${isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden transition-all duration-300 ease-in-out`}>
         <div className="container-custom py-4 flex flex-col space-y-3 border-t mt-4">
-          <Link to="/" className="px-4 py-2 text-gray-700 hover:text-amber-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Início</Link>
-          <a href="#about" className="px-4 py-2 text-gray-700 hover:text-amber-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Sobre Nós</a>
-          <a href="#services" className="px-4 py-2 text-gray-700 hover:text-amber-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Serviços</a>
-          <a href="#contact" className="px-4 py-2 text-gray-700 hover:text-amber-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Contato</a>
+          <Link to="/" className="px-4 py-2 text-gray-700 hover:text-green-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Início</Link>
+          <a href="#about" className="px-4 py-2 text-gray-700 hover:text-green-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Sobre Nós</a>
+          <a href="#services" className="px-4 py-2 text-gray-700 hover:text-green-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Serviços</a>
+          <a href="#contact" className="px-4 py-2 text-gray-700 hover:text-green-500 hover:bg-gray-50 rounded-md" onClick={toggleMobileMenu}>Contato</a>
         </div>
       </div>
     </header>
