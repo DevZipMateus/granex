@@ -133,7 +133,7 @@ const Gallery = () => {
         </div>
 
         {/* Carousel para telas menores */}
-        <div className="block md:hidden">
+        <div className="block md:hidden relative">
           <Carousel className="w-full">
             <CarouselContent>
               {galleryImages.map((image, index) => (
@@ -159,8 +159,10 @@ const Gallery = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-2 md:left-4" />
-            <CarouselNext className="absolute right-2 md:right-4" />
+            <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between pointer-events-none">
+              <CarouselPrevious className="pointer-events-auto left-1" />
+              <CarouselNext className="pointer-events-auto right-1" />
+            </div>
           </Carousel>
         </div>
 
