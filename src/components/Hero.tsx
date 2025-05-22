@@ -1,13 +1,43 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsMobile } from '../hooks/use-mobile';
+
+// Importing gallery images for the hero background
+const heroBackgroundImages = [
+  '/lovable-uploads/e0c0c6b4-cdb1-4a52-b142-f3773128fdf8.png',
+  '/lovable-uploads/8fa37de1-6a6b-43fe-83be-ff14f62ecedf.png',
+  '/lovable-uploads/4f3efc2c-c029-4c3f-9fe5-132c25a1c215.png',
+  '/lovable-uploads/06309693-8dc0-4fa7-a0b2-4dfc4bc86fbd.png',
+  '/lovable-uploads/ae29b8b0-9b97-4d09-bfc0-065e91a441c0.png'
+];
 
 const Hero = () => {
   const isMobile = useIsMobile();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Auto-rotate background images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prevIndex => 
+        prevIndex === heroBackgroundImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change image every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
   
   return (
     <section className="pt-28 pb-12 md:pt-36 md:pb-20 bg-gradient-to-br from-neutral-900 to-neutral-800 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-10"></div>
+      {/* Background images carousel */}
+      {heroBackgroundImages.map((img, index) => (
+        <div 
+          key={index}
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+            index === currentImageIndex ? 'opacity-10' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url(${img})` }}
+        ></div>
+      ))}
       
       {/* Decorative elements */}
       <div className="absolute top-40 right-10 w-72 h-72 bg-green-500/10 rounded-full blur-3xl"></div>
